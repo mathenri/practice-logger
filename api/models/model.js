@@ -8,7 +8,7 @@ var RecordSchema = new Schema({
 		required: 'Kindly enter the name of the user'
 	},
 	hours: {
-		type: String,
+		type: Number,
 		required: 'Kindly enter the amount of hours practiced'
 	},
 	Created_date: {
@@ -17,4 +17,4 @@ var RecordSchema = new Schema({
 	}
 });
 
-module.exports = mongoose.model('Records', RecordSchema);
+module.exports = mongoose.model('Record', RecordSchema);
