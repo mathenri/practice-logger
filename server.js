@@ -1,11 +1,19 @@
 var express = require('express'),
   	app = express(),
-  	port = process.env.PORT || 3000,
+  	port = process.env.PORT || 4000,
   	mongoose = require('mongoose'),
   	Record = require('./api/models/model'),
   	bodyParser = require('body-parser'),
   	winston = require('winston'),
-  	expressWinston = require('express-winston');
+  	expressWinston = require('express-winston'),
+  	cors = require('cors');
+
+mongoose.Promise = global.Promise;
+mongoose.connect('mongodb://localhost/RecordDB', { useMongoClient: true });
+
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
+app.use(cors());
 
 // logging middleware
 app.use(expressWinston.logger({
@@ -22,12 +30,6 @@ app.use(expressWinston.logger({
 	meta: false, // log the meta data about the request
 	expressFormat: true, // default message format
 }));
-
-mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/RecordDB', { useMongoClient: true });
-
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(bodyParser.json());
 
 var routes = require('./api/routes/routes'); //importing route
 routes(app); //register the route
