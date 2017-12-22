@@ -18,42 +18,20 @@ class App extends Component {
   }
 
   render() {
-    const data = [
-      {x: 'Trombone', y: 25, color: 1},
-      {x: 'Cornet', y: 15, color: 2},
-      {x: 'Horns', y: 16, color: 3},
-    ];
+    let formattedRecords = [];
+    let recordIndex = 0;
+    this.state.records.forEach(function(item) {
+      formattedRecords.push({x: item._id, y: item.hours, color:recordIndex});
+      recordIndex++;
+    });
 
-    // const sumByKey = function(arr) {
-    //   return arr.reduce(function(groups, item) {
-    //     const key = item['user']
-    //     const val = item['hours'];
-    //     groups[key] = groups[key] || 0;
-    //     groups[key] = groups[key] + parseFloat(val);
-    //     return groups;
-    //   }, {});
-    // }
-
-    // const recs = this.state.records;
-    // const summedData = sumByKey(recs);
-    // let summedDataList = [];
-    // let index = 0;
-    // for (let user in summedData) {
-    //   summedDataList.push({user:user, hours:summedData[user], id:index});
-    //   index++;
-    // }
-    // console.log(summedDataList);
-    console.log(this.state.records);
     return (
       <div className="App">
         <XYPlot height={300} width={500} colorType="category" xType="ordinal">
-          <VerticalBarSeries data={data} />
+          <VerticalBarSeries data={formattedRecords} />
           <YAxis />
           <XAxis />
         </XYPlot>
-        <ul>
-          {this.state.records.map(record=><li key={record.user}>{record.user}: {record.hours}</li>)}
-        </ul>
       </div>
     );
   }
