@@ -4,12 +4,20 @@ var mongoose = require('mongoose'),
   	Record = mongoose.model('Record');
 
 exports.listRecords = function(req, res) {
-	Record.find({}, function(err, record) {
+	Record.find({}, function(err, records) {
 		if (err)
 			res.send(err);
-		res.json(record);
+		res.json(records);
 	});
 };
+
+exports.listRecordsSumByUser = function(req, res) {
+	Record.aggregate([ { $group : { _id : "$user", s: {$sum: "$hours"} } } ], function(err, records) {
+		if (err)
+			res.send(err);
+		res.json(records)
+	});
+}
 
 exports.createRecord = function(req, res) {
 	var newRecord = new Record(req.body);

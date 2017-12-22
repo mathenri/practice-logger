@@ -11,4 +11,7 @@ module.exports = function(app) {
 		.get(controller.getRecord)
 		.put(controller.updateRecord)
 		.delete(controller.deleteRecord);
+
+	app.route('/records-sum-by-user')
+		.get(controller.listRecordsSumByUser);
 };
