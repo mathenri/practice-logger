@@ -27,12 +27,61 @@ class App extends Component {
 
     return (
       <div className="App">
-        <XYPlot height={300} width={500} colorType="category" xType="ordinal">
-          <VerticalBarSeries data={formattedRecords} />
-          <YAxis />
-          <XAxis />
-        </XYPlot>
+        <div className="centered">
+          <XYPlot height={300} width={500} colorType="category" xType="ordinal">
+            <VerticalBarSeries data={formattedRecords} />
+            <YAxis />
+            <XAxis />
+          </XYPlot>
+        </div>
+        <div className="centered">
+          <NameForm />
+        </div>
       </div>
+    );
+  }
+}
+
+class NameForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { value: '' };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange(event) {
+    this.setState({value: event.target.value});
+  }
+
+  handleSubmit(event) {
+    alert('One practice hour was logged for instruement: ' + this.state.value);
+
+    fetch('http://localhost:4000/records', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        user: this.state.value,
+        hours: 1,
+      })
+    });
+
+    event.preventDefault();
+  }
+
+  render() {
+    return (
+      <form onSubmit={this.handleSubmit}>
+        <label>
+          Instruement:
+          <input type="text" value={this.state.value} onChange={this.handleChange} />
+        </label>
+        <input type="submit" value="Submit" />
+      </form>
     );
   }
 }

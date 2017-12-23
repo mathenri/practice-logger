@@ -3,12 +3,13 @@ body, html {
 }
 
 .hero-image {
-	background-image: url("bk.jpg");
-	height: 70%;
+	/*background-image: url("bk.jpg");*/
+	height: 60%;
 	background-position: center;
-	background-repeat: no-repeat;
+	/*background-repeat: no-repeat;*/
 	background-size: cover;
 	position: relative;
+	background-color: #12939A;
 }
 
 .hero-text {
@@ -20,4 +21,10 @@ body, html {
 	color: white;
 	font-size: 40px;
 	font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+}
+
+.centered {
+	margin: auto;
+	padding: 20px;
+	width: 50%;
 }
