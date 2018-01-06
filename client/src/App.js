@@ -45,18 +45,27 @@ class App extends Component {
 class NameForm extends Component {
   constructor(props) {
     super(props);
-    this.state = { value: '' };
+    this.state = { 
+      instrument: 'Trombone',
+      hours: 2
+    };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(event) {
-    this.setState({value: event.target.value});
+    const target = event.target;
+    const value = target.value;
+    const name = target.name;
+
+    this.setState({
+      [name]: value
+    });
   }
 
   handleSubmit(event) {
-    alert('One practice hour was logged for instruement: ' + this.state.value);
+    alert(this.state.hours + ' practice hours was logged for instrument: ' + this.state.instrument);
 
     fetch('http://localhost:4000/records', {
         method: 'POST',
@@ -65,8 +74,8 @@ class NameForm extends Component {
           'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        user: this.state.value,
-        hours: 1,
+        user: this.state.instrument,
+        hours: this.state.hours,
       })
     });
 
@@ -76,9 +85,16 @@ class NameForm extends Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <label>
-          Instruement:
-          <input type="text" value={this.state.value} onChange={this.handleChange} />
+        <label>Instrument:
+          <select name="instrument" value={this.state.instrument} onChange={this.handleChange}>
+            <option value="Trombone">Trombone</option>
+            <option value="Cornet">Cornet</option>
+            <option value="Tuba">Tuba</option>
+            <option value="Horn">Horn</option>
+          </select>
+        </label>
+        <label>Hours:
+          <input name="hours" type="number" value={this.state.hours} onChange={this.handleChange} />
         </label>
         <input type="submit" value="Submit" />
       </form>
