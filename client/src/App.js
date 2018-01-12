@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import './App.css';
 import '../node_modules/react-vis/dist/style.css';
 import {XYPlot, XAxis, YAxis, VerticalBarSeries} from 'react-vis';
+import {Jumbotron} from 'react-bootstrap';
+import '../node_modules/bootstrap/dist/css/bootstrap.css';
+import '../node_modules/bootstrap/dist/css/bootstrap-theme.css';
 
 class App extends Component {
   constructor() {
@@ -27,6 +30,12 @@ class App extends Component {
 
     return (
       <div className="App">
+        <div className="container">
+          <Jumbotron>
+          <h1>Practice logger</h1>
+          <p>Log you practice hours here!</p>
+          </Jumbotron>
+        </div>
         <div className="centered">
           <XYPlot height={300} width={500} colorType="category" xType="ordinal">
             <VerticalBarSeries data={formattedRecords} />
